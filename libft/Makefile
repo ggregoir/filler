@@ -6,7 +6,7 @@
 #    By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/06 18:41:23 by jafaghpo          #+#    #+#              #
-#    Updated: 2017/04/05 15:23:39 by ggregoir         ###   ########.fr        #
+#    Updated: 2017/07/08 15:34:02 by ggregoir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRC =		src/ft_memset.c src/ft_bzero.c src/ft_memchr.c src/ft_memcpy.c src/ft_str
 			src/ft_strsub.c src/ft_strjoin.c src/ft_strtrim.c src/ft_strsplit.c src/ft_lstnew.c \
 			src/ft_lstdelone.c src/ft_lstdel.c src/ft_lstadd.c src/ft_lstiter.c src/ft_lstmap.c \
 			src/ft_isupper.c src/ft_islower.c src/ft_isspace.c src/ft_strjoin_free.c \
-			src/ft_putnstr.c src/ft_strcut.c \
+			src/ft_putnstr.c src/ft_strcut.c
 
 OBJ		= $(patsubst src/%.c,obj/%.o,$(SRC))
 REM		= 	ft_bzero.o ft_memchr.o ft_memcpy.o ft_strcpy.o \

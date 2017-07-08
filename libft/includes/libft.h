@@ -6,7 +6,7 @@
 /*   By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 18:14:53 by ggregoir          #+#    #+#             */
-/*   Updated: 2017/04/05 15:16:34 by ggregoir         ###   ########.fr       */
+/*   Updated: 2017/07/08 15:32:24 by ggregoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <string.h>
+
+# define BUFF_SIZE		4096
 
 typedef	struct	s_list
 {
