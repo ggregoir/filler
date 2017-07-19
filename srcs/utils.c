@@ -6,11 +6,12 @@
 /*   By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/03 19:04:20 by ggregoir          #+#    #+#             */
-/*   Updated: 2017/07/08 17:24:11 by ggregoir         ###   ########.fr       */
+/*   Updated: 2017/07/19 19:59:44 by ggregoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
+#include <stdio.h>
 
 int				ft_end(t_struct *s)
 {
@@ -26,7 +27,7 @@ int				ft_end(t_struct *s)
 	free(s->map);
 	if (s->stop == 1)
 	{
-		;free(s);
+		//free(s);
 		return (1);
 	}
 	return (0);
@@ -44,6 +45,12 @@ void			ft_init_struct(t_struct *s)
 {
 	s->dir = 0;
 	s->stop = 0;
+	s->enemyx = 0;
+	s->enemyy = 0;
+	s->mex = 0 ;
+	s->mey = 0;
+	s->piecex = 0;
+	s->piecey = 0;
 }
 
 void			get_near_enemy(t_struct *s)

@@ -1,7 +1,4 @@
-seed = 4994
-X: error on input
-../ggregoir.filler: Segfault at 0
-O: error on input
-players/grati.filler won
+seed = 132
+players/carli.filler won
 Score:
-27AGAINST0
+230AGAINST118

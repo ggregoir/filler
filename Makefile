@@ -6,7 +6,7 @@
 #    By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/06/29 19:13:14 by ggregoir          #+#    #+#              #
-#    Updated: 2017/07/08 15:35:58 by ggregoir         ###   ########.fr        #
+#    Updated: 2017/07/19 17:22:58 by ggregoir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRC		= srcs/main.c       \
 		srcs/strats.c		\
 		srcs/utils.c		\
 		srcs/utils2.c		\
+		srcs/parsing.c		\
 		
 OBJ		= $(patsubst srcs/%.c,obj/%.o,$(SRC))
 .SILENT:
@@ -24,7 +25,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	make -C libft/
-	gcc -Wall -Wextra -Werror -L libft/ -lft -g -L/usr/local/lib $(SRC) -o $(NAME)
+	gcc -Wall -Wextra -Werror -L libft/ -lft -g $(SRC) -o $(NAME)
 	@echo '\033[32m[ ✔ ] \n\033[0m' "Create filler"
 
 obj/%.o: srcs/%.c

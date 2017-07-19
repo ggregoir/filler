@@ -6,7 +6,7 @@
 /*   By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 16:29:27 by ggregoir          #+#    #+#             */
-/*   Updated: 2017/07/08 18:13:44 by ggregoir         ###   ########.fr       */
+/*   Updated: 2017/07/19 18:21:37 by ggregoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,45 +15,52 @@
 
 void			ft_getplayers(t_struct *s)
 {
-	char 		*line;
-
-	if (get_next_line(0, &line) > 0)
+	/*int x;
+	x = 0;
+	while (s->tmp[x])
 	{
-		if (ft_atoi(line + 10) == 1)
-		{
-			s->enemy = 'X';
-			s->me = 'O';
-		}
-		else if (ft_atoi(line + 10) == 2)
-		{
-			s->enemy = 'O';
-			s->me = 'X';
-		}
-		//free(line);
+		printf("%s\n", s->tmp[x]);
+		x++;
 	}
+	*/
+	//printf("%s\n",s->tmp[0] + 10);
+	if (ft_atoi(s->tmp[0] + 10) == 1)
+	{
+		s->enemy = 'X';
+		s->me = 'O';
+	}
+	else
+	{
+		s->enemy = 'O';
+		s->me = 'X';
+	}
+	if (!s->mapx && !s->mapy)
+		{
+			s->mapy = ft_atoi(s->tmp[1] + 8);
+			s->mapx = ft_atoi(s->tmp[1] + 11);
+		}
 }
 
 void			ft_getpiece(t_struct *s)
 {
-	char 		*line;
 	int			i;
+	int 		j;
 
-	get_next_line(0, &line);
+	j = s->mapy + 3;
 	if (!s->piecex && !s->piecey)
 	{
-		s->piecex = ft_atoi(line + 6);
-		s->piecey = ft_atoi(line + 8);
+		s->piecex = ft_atoi(s->tmp[j] + 6);
+		s->piecey = ft_atoi(s->tmp[j] + 8);
 	}
+	j++;
 	s->piece = ft_memalloc(sizeof(char*) * (s->piecey + 1));
 	i = 0;
 	while(i < s->piecey)
 	{
-		if (get_next_line(0, &line) > 0)
-		{
-			s->piece[i] = ft_strdup(line);
-			free(line);
-		}
+		if (s->tmp[j] != 0)
+			s->piece[i] = ft_strdup(s->tmp[j]);
 		i++;
+		j++;
 	}
 }
 
@@ -61,7 +68,9 @@ void			ft_getinitpos(t_struct *s)
 {
 	int x;
 	int y;
+	int i;
 
+	i = 0;
 	y = 0;
 	while(y != s->mapy)
 	{
@@ -88,50 +97,39 @@ void			ft_getinitpos(t_struct *s)
 
 void			ft_getmap(t_struct *s)
 {
-	char 		*line;
 	int			i;
 
 	s->map = ft_memalloc(sizeof(char*) * (s->mapy + 1));
-	get_next_line(0, &line);
-
 	i = 0;
 	while(i < s->mapy)
 	{
-		if (get_next_line(0, &line) > 0)
-		{
-			if (!(s->map[i] = ft_strdup(line + 4)))
-				error(2);
-			//free(line);
-		}
+		if (!(s->map[i] = ft_strdup(s->tmp[i + 3] + 4)))
+			error(2);
 		i++;
 	}
 	ft_getpiece(s);
 	if (s->enemyx == 0 && s->enemyy == 0 && s->mex == 0 && s->mey == 0)
 		ft_getinitpos(s);
-
 }
 
 int 			main()
 {
 	t_struct	s;
-	char 		*line;
+	int			free;
 
 	ft_init_struct(&s);
-	ft_getplayers(&s);
-	while (get_next_line(0, &line) > 0)
+	if ((free = get_all(&s)) >= 0)
 	{
-		if (!s.mapx && !s.mapy)
-		{
-			s.mapx = ft_atoi(line + 8);
-			s.mapy = ft_atoi(line + 11);
-		}
-		//free(line);
+		ft_getplayers(&s);
 		ft_getmap(&s);
+		printf("mapx = %d mapy = %d piecex = %d piecey = %d mex = %d mey = %d enemyx = %d enemyy = %d  \n", s.mapx, s.mapy, s.piecex, s.piecey, s.mex, s.mey, s.enemyx, s.enemyy);
 		if (!ft_get_enemy_play(&s))
 			s.stop = 1;
 		ft_print_piece(&s);
-		if (ft_end(&s) == 1)
-			break ;
+		//printf("mapx = %d mapy = %d piecex = %d piecey = %d mex = %d mey = %d enemyx = %d enemyy = %d  \n", s.mapx, s.mapy, s.piecex, s.piecey, s.mex, s.mey, s.enemyx, s.enemyy);
+		ft_end(&s);
+			//break ;
 	}
+
 	return (0);
 }

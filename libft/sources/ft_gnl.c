@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2.c                                           :+:      :+:    :+:   */
+/*   ft_gnl.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jafaghpo <jafaghpo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/08 15:32:39 by ggregoir          #+#    #+#             */
-/*   Updated: 2017/07/19 17:46:54 by ggregoir         ###   ########.fr       */
+/*   Created: 2017/06/29 14:24:18 by jafaghpo          #+#    #+#             */
+/*   Updated: 2017/06/29 19:21:43 by jafaghpo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/filler.h"
-#include <limits.h>
+#include <libft.h>
+#include <unistd.h>
+#include <fcntl.h>
 
-int					get_next_line(int const fd, char **line)
+int					ft_gnl(int const fd, char **line)
 {
 	static char		*save[OPEN_MAX];
 	t_gnl			gnl;
@@ -40,14 +41,4 @@ int					get_next_line(int const fd, char **line)
 		save[fd] = ft_strjoinf(save[fd], gnl.buff, 1);
 	}
 	return (-1);
-}
-
-void		error(int i)
-{
-	if (i == 1)
-		ft_putendl("error");
-	if (i == 2)
-		ft_putendl("malloc error");
-	if (i == 3)
-		ft_putendl("strdup error");
 }

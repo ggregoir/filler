@@ -6,11 +6,12 @@
 /*   By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 11:13:57 by ggregoir          #+#    #+#             */
-/*   Updated: 2017/07/06 17:10:13 by ggregoir         ###   ########.fr       */
+/*   Updated: 2017/07/19 20:01:25 by ggregoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
+#include <stdio.h>
 
 int		enemy_dist(t_struct *s, int x, int y)
 {
@@ -44,29 +45,50 @@ int			check(t_struct *s, int x, int y, int z)
 	int i;
 	int j;
 
-	i = 0;
-	while( i < s->piecey)
+	j = 0;
+	printf("toast\n");
+	while( i < s->piecey - 1)
 	{
-		j = 0;
-		i++;
-		while (j < s->piecex)
+		printf("lel\n");
+		i = 0;
+		j++;
+		printf("lil\n");
+		while (j < s->piecex - 1)
 		{
+			printf("lul\n");
 			if (i >= 0 && j >= 0 && i < s->piecey && j < s->piecex)
 			{
+				printf("lal\n");
+				printf("i = %d j = %d\n", i, j);
 				if (s->piece[i][j] == '*')
 				{
+					printf("i = %d j = %d\n", i, j);
 					if (i + y < 0 || j + x < 0 || i + y >= s->mapy ||
 						j + x >= s->mapx)
+					{
 						return (0);
+						printf("lol1\n");
+					}
 					else if (s->map[i + y][j + x] == s->me)
-						z++;
+						{
+							printf("yolo\n");
+							z++;
+						}
 					else if (s->map[i + y][j + x] == s->enemy)
+					{
 						return (0);
+						printf("lol2\n");
+					}
+					printf("laikenf\n");
 				}
+				printf("mom's swaggheti\n");
 			}
-			j++;
+			printf("ameno\n");
+			i++;
 		}
+		printf("why u do dis\n");
 	}
+	printf("hehehehehehe\n");
 	return ((z == 1) ? enemy_dist(s, x, y) : 0);
 }
 
@@ -76,6 +98,7 @@ int		strat_upleft(t_struct *s)
 	int		y;
 	int		ret;
 
+	printf("upleft\n");
 	y = -s->piecey;
 	while(y < s->mapy)
 	{
@@ -104,6 +127,7 @@ int		strat_downright(t_struct *s)
 	int		y;
 	int		ret;
 
+	printf("downright\n");
 	y = s->mapy + s->piecey;
 	while(y > s->mapy)
 	{
