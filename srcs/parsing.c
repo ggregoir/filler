@@ -6,7 +6,7 @@
 /*   By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/19 10:58:53 by ggregoir          #+#    #+#             */
-/*   Updated: 2017/07/19 18:00:48 by ggregoir         ###   ########.fr       */
+/*   Updated: 2017/07/20 14:56:28 by ggregoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,13 @@ int			get_all(t_struct *s)
 {
 	int		x;
 	char	*line;
+	int ret;
 
 	x = 0;
-	s->tmp = ft_memalloc(sizeof(char*) * 200);
-	while(get_next_line(0, &line) > 0)
+	while((ret = (get_next_line(0, &line)) > 0))
 	{
 		s->tmp[x] = line;
 		x++;
 	}
-	x = 0;
 	return (x);
 }

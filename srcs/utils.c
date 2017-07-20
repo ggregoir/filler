@@ -6,7 +6,7 @@
 /*   By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/03 19:04:20 by ggregoir          #+#    #+#             */
-/*   Updated: 2017/07/19 19:59:44 by ggregoir         ###   ########.fr       */
+/*   Updated: 2017/07/20 14:30:52 by ggregoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,10 @@ void			ft_init_struct(t_struct *s)
 	s->mey = 0;
 	s->piecex = 0;
 	s->piecey = 0;
+	s->distenemy = 0;
+	s->me = 0;
+	s->enemy = 0;
+	s->tmp = ft_memalloc(sizeof(char*) * 200);
 }
 
 void			get_near_enemy(t_struct *s)

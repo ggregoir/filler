@@ -6,7 +6,7 @@
 /*   By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 16:29:27 by ggregoir          #+#    #+#             */
-/*   Updated: 2017/07/19 18:21:37 by ggregoir         ###   ########.fr       */
+/*   Updated: 2017/07/20 15:52:13 by ggregoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void			ft_getpiece(t_struct *s)
 	j = s->mapy + 3;
 	if (!s->piecex && !s->piecey)
 	{
-		s->piecex = ft_atoi(s->tmp[j] + 6);
-		s->piecey = ft_atoi(s->tmp[j] + 8);
+		s->piecey = ft_atoi(s->tmp[j] + 6);
+		s->piecex = ft_atoi(s->tmp[j] + 8);
 	}
 	j++;
 	s->piece = ft_memalloc(sizeof(char*) * (s->piecey + 1));
@@ -118,18 +118,21 @@ int 			main()
 	int			free;
 
 	ft_init_struct(&s);
-	if ((free = get_all(&s)) >= 0)
-	{
-		ft_getplayers(&s);
-		ft_getmap(&s);
-		printf("mapx = %d mapy = %d piecex = %d piecey = %d mex = %d mey = %d enemyx = %d enemyy = %d  \n", s.mapx, s.mapy, s.piecex, s.piecey, s.mex, s.mey, s.enemyx, s.enemyy);
-		if (!ft_get_enemy_play(&s))
-			s.stop = 1;
-		ft_print_piece(&s);
-		//printf("mapx = %d mapy = %d piecex = %d piecey = %d mex = %d mey = %d enemyx = %d enemyy = %d  \n", s.mapx, s.mapy, s.piecex, s.piecey, s.mex, s.mey, s.enemyx, s.enemyy);
-		ft_end(&s);
-			//break ;
-	}
-
+	//while (1)
+	//{
+		if ((free = get_all(&s)) > 0)
+		{
+			if (!s.me && !s.enemy)
+				ft_getplayers(&s);
+			ft_getmap(&s);
+			//printf("mapx = %d mapy = %d piecex = %d piecey = %d mex = %d mey = %d enemyx = %d enemyy = %d  \n", s.mapx, s.mapy, s.piecex, s.piecey, s.mex, s.mey, s.enemyx, s.enemyy);
+			if (!ft_get_enemy_play(&s))
+				s.stop = 1;
+			ft_print_piece(&s);
+			//printf("mapx = %d mapy = %d piecex = %d piecey = %d mex = %d mey = %d enemyx = %d enemyy = %d  \n", s.mapx, s.mapy, s.piecex, s.piecey, s.mex, s.mey, s.enemyx, s.enemyy);
+			if (ft_end(&s))
+				printf("lol\n");
+		}
+	//}
 	return (0);
 }
