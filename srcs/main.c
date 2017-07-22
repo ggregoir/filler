@@ -6,12 +6,14 @@
 /*   By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 16:29:27 by ggregoir          #+#    #+#             */
-/*   Updated: 2017/07/20 15:52:13 by ggregoir         ###   ########.fr       */
+/*   Updated: 2017/07/22 03:08:05 by ggregoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "../includes/filler.h"
+
+
 
 void			ft_getplayers(t_struct *s)
 {
@@ -117,22 +119,25 @@ int 			main()
 	t_struct	s;
 	int			free;
 
+	/*if (fd == 0)
+		fd = open("/dev/ttys002", O_WRONLY);
+	ft_putstr_fd("test", fd);*/
+
 	ft_init_struct(&s);
-	//while (1)
-	//{
+	while (1)
+	{
 		if ((free = get_all(&s)) > 0)
 		{
-			if (!s.me && !s.enemy)
-				ft_getplayers(&s);
+			ft_getplayers(&s);
 			ft_getmap(&s);
-			//printf("mapx = %d mapy = %d piecex = %d piecey = %d mex = %d mey = %d enemyx = %d enemyy = %d  \n", s.mapx, s.mapy, s.piecex, s.piecey, s.mex, s.mey, s.enemyx, s.enemyy);
+			//printf("player = %c mapx = %d mapy = %d piecex = %d piecey = %d mex = %d mey = %d enemyx = %d enemyy = %d  \n", s.me,s.mapx, s.mapy, s.piecex, s.piecey, s.mex, s.mey, s.enemyx, s.enemyy);
 			if (!ft_get_enemy_play(&s))
 				s.stop = 1;
 			ft_print_piece(&s);
 			//printf("mapx = %d mapy = %d piecex = %d piecey = %d mex = %d mey = %d enemyx = %d enemyy = %d  \n", s.mapx, s.mapy, s.piecex, s.piecey, s.mex, s.mey, s.enemyx, s.enemyy);
 			if (ft_end(&s))
-				printf("lol\n");
+				break;
 		}
-	//}
+	}
 	return (0);
 }

@@ -6,12 +6,14 @@
 /*   By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/03 19:04:20 by ggregoir          #+#    #+#             */
-/*   Updated: 2017/07/20 14:30:52 by ggregoir         ###   ########.fr       */
+/*   Updated: 2017/07/22 03:09:55 by ggregoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
 #include <stdio.h>
+
+// int fd = 0;
 
 int				ft_end(t_struct *s)
 {
@@ -104,6 +106,8 @@ int				ft_get_enemy_play(t_struct *s)
 		}
 		y++;
 	}
+		// if (fd == 0)
+		// fd = open("/dev/ttys000", O_WRONLY);
 	if (s->enemyy > s->mey)
 		s->dir = 1;
 	if ( s->mapx > s->mapy)

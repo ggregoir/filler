@@ -6,7 +6,7 @@
 /*   By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 11:13:57 by ggregoir          #+#    #+#             */
-/*   Updated: 2017/07/20 13:39:08 by ggregoir         ###   ########.fr       */
+/*   Updated: 2017/07/22 03:17:06 by ggregoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int		enemy_dist(t_struct *s, int x, int y)
 	int		len;
 
 	len = 0;
+//	printf("SALUT\n");
 	while (++len)
 	{
 		i = y - len;
@@ -35,7 +36,9 @@ int		enemy_dist(t_struct *s, int x, int y)
 			}
 			i++;
 		}
+		//printf("len = %d\n", len);
 	}
+	//printf("IM OUT\n");
 	return (s->distmax);
 }
 
@@ -57,8 +60,8 @@ int			check(t_struct *s, int x, int y, int z)
 			//printf("lul\n");
 			if (i >= 0 && j >= 0 && i < s->piecey && j < s->piecex)
 			{
-			//	printf("lal\n");
-			//	printf("i = %d j = %d\n", i, j);
+				//printf("lal\n");
+				//printf("i = %d j = %d\n", i, j);
 				if (s->piece[i][j] == '*')
 				{
 					//printf("i = %d j = %d\n", i, j);
@@ -70,7 +73,7 @@ int			check(t_struct *s, int x, int y, int z)
 					}
 					else if (s->map[i + y][j + x] == s->me)
 						{
-							//printf("yolo\n");
+							///printf("yolo\n");
 							z++;
 						}
 					else if (s->map[i + y][j + x] == s->enemy)
@@ -93,9 +96,11 @@ int			check(t_struct *s, int x, int y, int z)
 
 int		strat_upleft(t_struct *s)
 {
+	//printf("lelilel\n");
 	int		x;
 	int		y;
 	int		ret;
+
 
 	y = -s->piecey;
 	while(y < s->mapy)
@@ -116,19 +121,29 @@ int		strat_upleft(t_struct *s)
 		}
 		y++;
 	}
+
+
 	return ((s->distenemy < s->distmax) ? 1 : 0);
 }
 
 int		strat_downright(t_struct *s)
 {
+	//printf("lolilol\n");
 	int		x;
 	int		y;
 	int		ret;
 
+	int fd = 0;
+	if (fd == 0)
+		fd = open("/dev/ttys000", O_WRONLY);
+	ft_putendl_fd("ouiouoiuoiu\n", fd);
+
 	y = s->mapy + s->piecey;
-	while(y > s->mapy)
+	//printf("y = %d\n",y );
+	while(y > -s->mapy)
 	{
 		x = s->mapx + s->piecex;
+		//printf("x = %d\n",x );
 		while (x > -s->mapx)
 		{
 			if ((ret = check(s, x, y, 0)))

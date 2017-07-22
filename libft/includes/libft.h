@@ -6,7 +6,7 @@
 /*   By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 15:00:19 by jafaghpo          #+#    #+#             */
-/*   Updated: 2017/07/19 17:46:13 by ggregoir         ###   ########.fr       */
+/*   Updated: 2017/07/22 02:19:28 by ggregoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <limits.h>
 # include <stdlib.h>
 # include <unistd.h>
+#include <fcntl.h>
 
 # define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
 # define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))

@@ -6,12 +6,13 @@
 /*   By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/19 10:58:53 by ggregoir          #+#    #+#             */
-/*   Updated: 2017/07/20 14:56:28 by ggregoir         ###   ########.fr       */
+/*   Updated: 2017/07/22 02:57:34 by ggregoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
 #include <stdio.h>
+
 
 int			get_all(t_struct *s)
 {
