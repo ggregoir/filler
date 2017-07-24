@@ -6,7 +6,7 @@
 /*   By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 11:13:57 by ggregoir          #+#    #+#             */
-/*   Updated: 2017/07/22 03:17:06 by ggregoir         ###   ########.fr       */
+/*   Updated: 2017/07/24 22:32:11 by ggregoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,18 @@ int		enemy_dist(t_struct *s, int x, int y)
 //	printf("SALUT\n");
 	while (++len)
 	{
-		i = y - len;
-		while (i <= y + len)
+		j = y - len;
+		while (j <= y + len)
 		{
-			j = x - len;
-			while (j <= x + len)
+			i = x - len;
+			while (i <= x + len)
 			{
-				if (j >= 0 && i < s->mapy && i >= 0 && j < s->mapx)
-					if (s->map[i][j] == s->enemy)
+				if (i >= 0 && j < s->mapy && j >= 0 && i < s->mapx)
+					if (s->map[j][i] == s->enemy)
 						return (len);
-				j++;
+				i++;
 			}
-			i++;
+			j++;
 		}
 		//printf("len = %d\n", len);
 	}
@@ -42,41 +42,41 @@ int		enemy_dist(t_struct *s, int x, int y)
 	return (s->distmax);
 }
 
-int			check(t_struct *s, int x, int y, int z)
+int			check(t_struct *s, int x, int y, int aste)
 {
 	int i;
 	int j;
 
-	i = 0;
+	j = -1;
 	//printf("toast\n");
-	while( i < s->piecey)
+	while( j++ < s->piecey)
 	{
 		//printf("lel\n");
-		j = 0;
-		i++;
+		i = -1;
 		//printf("lil\n");
-		while (j < s->piecex)
+		while (i++< s->piecex)
 		{
 			//printf("lul\n");
-			if (i >= 0 && j >= 0 && i < s->piecey && j < s->piecex)
+			//printf("i = %d j = %d\n", i, j);
+			if (i >= 0 && j >= 0 && j < s->piecey && i < s->piecex)
 			{
 				//printf("lal\n");
 				//printf("i = %d j = %d\n", i, j);
-				if (s->piece[i][j] == '*')
+				if (s->piece[j][i] == '*')
 				{
 					//printf("i = %d j = %d\n", i, j);
-					if (i + y < 0 || j + x < 0 || i + y >= s->mapy ||
-						j + x >= s->mapx)
+					if (j + y < 0 || i + x < 0 || j + y >= s->mapy ||
+						i + x >= s->mapx)
 					{
 						return (0);
 						//printf("lol1\n");
 					}
-					else if (s->map[i + y][j + x] == s->me)
+					else if (s->map[j + y][i + x] == s->me)
 						{
-							///printf("yolo\n");
-							z++;
+							//printf("yolo\n");
+							aste++;
 						}
-					else if (s->map[i + y][j + x] == s->enemy)
+					else if (s->map[j + y][i + x] == s->enemy)
 					{
 						return (0);
 						//printf("lol2\n");
@@ -86,21 +86,19 @@ int			check(t_struct *s, int x, int y, int z)
 				//printf("mom's swaggheti\n");
 			}
 			//printf("ameno\n");
-			j++;
 		}
 		//printf("why u do dis\n");
 	}
 	//printf("hehehehehehe\n");
-	return ((z == 1) ? enemy_dist(s, x, y) : 0);
+	return ((aste == 1) ? enemy_dist(s, x, y) : 0);
 }
 
 int		strat_upleft(t_struct *s)
 {
-	//printf("lelilel\n");
+	printf("lelilel\n");
 	int		x;
 	int		y;
 	int		ret;
-
 
 	y = -s->piecey;
 	while(y < s->mapy)
@@ -122,7 +120,6 @@ int		strat_upleft(t_struct *s)
 		y++;
 	}
 
-
 	return ((s->distenemy < s->distmax) ? 1 : 0);
 }
 
@@ -132,11 +129,6 @@ int		strat_downright(t_struct *s)
 	int		x;
 	int		y;
 	int		ret;
-
-	int fd = 0;
-	if (fd == 0)
-		fd = open("/dev/ttys000", O_WRONLY);
-	ft_putendl_fd("ouiouoiuoiu\n", fd);
 
 	y = s->mapy + s->piecey;
 	//printf("y = %d\n",y );
@@ -162,3 +154,14 @@ int		strat_downright(t_struct *s)
 	return ((s->distenemy < s->distmax) ? 1 : 0);
 }
 
+void			get_strat(*s)
+{
+	if (s->dir == 1)
+	{
+		if (s->mapy == 15)
+			return(upleft_15(s));
+		return (strat_upleft(s));
+	}
+	else if (s->dir == 0)
+		return (strat_downright(s));
+}

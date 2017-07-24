@@ -6,7 +6,7 @@
 /*   By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 15:00:19 by jafaghpo          #+#    #+#             */
-/*   Updated: 2017/07/22 02:19:28 by ggregoir         ###   ########.fr       */
+/*   Updated: 2017/07/24 21:22:30 by ggregoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
 # define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 
-# define BUFF_SIZE 5000
+# define BUFF_SIZE 4096
 
 typedef unsigned char	t_byte;
 

@@ -6,7 +6,7 @@
 /*   By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/29 19:45:12 by ggregoir          #+#    #+#             */
-/*   Updated: 2017/07/19 17:44:54 by ggregoir         ###   ########.fr       */
+/*   Updated: 2017/07/24 21:27:26 by ggregoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ typedef struct	s_struct
 	char	**tmp;
 }				t_struct;
 
+typedef struct		s_line
+{
+	char			*tab;
+	int				fd;
+	struct s_line	*next;
+}					t_line;
 
 void			ft_init_struct(t_struct *s);
 int				ft_end(t_struct *s);
@@ -48,5 +54,7 @@ void			ft_print_piece(t_struct *s);
 int				get_all(t_struct *s);
 int				get_next_line(const int fd, char **line);
 void			error(int i);
+char			*ft_strjoin_and_free(char *s1, char *s2, char c, int at);
+size_t			ft_strlenchr(const char *s, char c);
 
 #endif

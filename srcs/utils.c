@@ -6,7 +6,7 @@
 /*   By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/03 19:04:20 by ggregoir          #+#    #+#             */
-/*   Updated: 2017/07/22 03:09:55 by ggregoir         ###   ########.fr       */
+/*   Updated: 2017/07/24 22:26:12 by ggregoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,21 @@ int				ft_end(t_struct *s)
 	if (s->stop == 1)
 	{
 		//free(s);
-		return (1);
+		return (0);
 	}
-	return (0);
+	return (1);
 }
 
 void			ft_print_piece(t_struct *s)
 {
-	ft_putnbr(s->x);
-	ft_putchar(' ');
+	int fd = 0;
+	if (fd == 0)
+		fd = open("/dev/ttys001", O_WRONLY);
+	ft_putendl_fd(ft_itoa(s->y), fd);
 	ft_putnbr(s->y);
+	ft_putchar(' ');
+	ft_putnbr(s->x);
+	ft_putendl_fd(ft_itoa(s->x), fd);
 	ft_putchar('\n');
 }
 
@@ -110,14 +115,12 @@ int				ft_get_enemy_play(t_struct *s)
 		// fd = open("/dev/ttys000", O_WRONLY);
 	if (s->enemyy > s->mey)
 		s->dir = 1;
-	if ( s->mapx > s->mapy)
-		s->distmax = s->mapx;
-	else 
-		s->distmax = s->mapx;
+	s->distmax = (s->mapx > s->mapy? s->mapx : s->mapy);
 	s->distenemy = s->distmax;
-	if (s->dir == 0)
-		return (strat_upleft(s));
-	else if (s->dir == 1)
-		return (strat_downright(s));
+	int fd = 0;
+	if (fd == 0)
+		fd = open("/dev/ttys001", O_WRONLY);
+	ft_putendl_fd("seg ici ?", fd);
+	get_strat(s);
 	return (0);
 }

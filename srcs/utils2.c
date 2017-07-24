@@ -6,48 +6,100 @@
 /*   By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/08 15:32:39 by ggregoir          #+#    #+#             */
-/*   Updated: 2017/07/19 17:46:54 by ggregoir         ###   ########.fr       */
+/*   Updated: 2017/07/24 21:23:50 by ggregoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
 #include <limits.h>
 
-int					get_next_line(int const fd, char **line)
+static void		ft_newline(t_line *lst, char **file)
 {
-	static char		*save[OPEN_MAX];
-	t_gnl			gnl;
+	char		*tmp;
 
-	if (!line || fd < 0 || !BUFF_SIZE || fd > OPEN_MAX)
-		return (-1);
-	gnl.ret = 1;
-	if (!save[fd])
-		save[fd] = ft_strnew(0);
-	while (gnl.ret > -1)
+	*file = ft_strjoin_and_free(*file, lst->tab, '\n', 0);
+	if (ft_memchr(lst->tab, '\n', ft_strlen(lst->tab)))
 	{
-		if ((gnl.tmp = ft_strchr(save[fd], '\n')) ||
-				((gnl.tmp = ft_strchr(save[fd], '\0')) && !gnl.ret))
-		{
-			*(gnl.tmp) = '\0';
-			*line = ft_strdup(save[fd]);
-			ft_memmove(save[fd], gnl.tmp + 1, ft_strlen(gnl.tmp + 1) + 1);
-			save[fd] = (!gnl.ret) ? NULL : save[fd];
-			return (line[0][0] || (!line[0][0] && gnl.ret > 0));
-		}
-		if ((gnl.ret = read(fd, gnl.buff, BUFF_SIZE)) == -1)
-			return (-1);
-		gnl.buff[gnl.ret] = '\0';
-		save[fd] = ft_strjoinf(save[fd], gnl.buff, 1);
+		tmp = ft_strdup(ft_memchr(lst->tab, '\n', ft_strlen(lst->tab)) + 1);
+		free(lst->tab);
+		lst->tab = tmp;
 	}
-	return (-1);
+	else
+		ft_bzero(lst->tab, ft_strlen(lst->tab) + 1);
 }
 
-void		error(int i)
+static int		ft_store(t_line *lst, char **file)
 {
-	if (i == 1)
-		ft_putendl("error");
-	if (i == 2)
-		ft_putendl("malloc error");
-	if (i == 3)
-		ft_putendl("strdup error");
+	char		*buf;
+	int			ret;
+
+	buf = ft_strnew(BUFF_SIZE);
+	while (!ft_memchr(lst->tab, '\n', ft_strlen(lst->tab)) &&
+			(ret = read(lst->fd, buf, BUFF_SIZE)))
+	{
+		if (ret == -1)
+		{
+			free(buf);
+			return (ret);
+		}
+		buf[ret] = '\0';
+		lst->tab = ft_strjoin_and_free(lst->tab, buf, '\0', 1);
+	}
+	free(buf);
+	if (!*lst->tab)
+	{
+		free(lst->tab);
+		free(lst);
+		return (0);
+	}
+	ft_newline(lst, file);
+	return (1);
+}
+
+static void		ft_add(t_line **begin_list, t_line *end)
+{
+	t_line	*tmp;
+
+	if (*begin_list)
+	{
+		tmp = *begin_list;
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = end;
+	}
+	else
+		*begin_list = end;
+}
+
+static t_line	*ft_new_list(const int fd)
+{
+	t_line	*new;
+
+	if (!(new = (t_line*)malloc(sizeof(t_line))))
+		return (NULL);
+	new->tab = ft_strnew(0);
+	new->fd = fd;
+	new->next = NULL;
+	return (new);
+}
+
+int				get_next_line(const int fd, char **line)
+{
+	static t_line	*first;
+	t_line			*last;
+
+	if (fd < 0 || !line || BUFF_SIZE < 1)
+		return (-1);
+	if (!first)
+		first = ft_new_list(fd);
+	last = first;
+	while (last && last->fd != fd)
+		last = last->next;
+	if (!last)
+	{
+		last = ft_new_list(fd);
+		ft_add(&first, last);
+	}
+	*line = "";
+	return (ft_store(last, line));
 }
