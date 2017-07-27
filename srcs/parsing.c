@@ -6,27 +6,42 @@
 /*   By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/19 10:58:53 by ggregoir          #+#    #+#             */
-/*   Updated: 2017/07/24 21:28:38 by ggregoir         ###   ########.fr       */
+/*   Updated: 2017/07/27 23:53:20 by ggregoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
 #include <stdio.h>
 
-
-int			get_all(t_struct *s)
+void	get_star(t_struct *s)
 {
-	int		x;
-	char	*line;
-	int ret;
+	int y;
+	int x;
+	int i;
 
-	x = 0;
-	while((ret = (get_next_line(0, &line)) > 0))
+	int fd = 0;
+
+	if (fd == 0)
+		fd = open("/dev/ttys001", O_WRONLY);
+
+	i = 0;
+	y = -1;
+	while (++y < s->piecey)
 	{
-		s->tmp[x] = line;
-		x++;
+		{
+			x = -1;
+			while (++x < s->piecex)
+			{
+				if (s->piece[y][x] == '*' && s->stary > y)
+					s->stary = y;
+				if (s->piece[y][x] == '*' && s->starx > x)
+					s->starx = x;
+			}
+		}
 	}
-	return (x);
+	ft_putendl_fd("lolOJJKDWGKJQGDKJGWLDBKEJSGFJGSKFJKJSEFici", fd);
+	ft_putendl_fd(ft_itoa(s->stary), fd);
+	ft_putendl_fd(ft_itoa(s->starx), fd);
 }
 
 size_t		ft_strlenchr(const char *s, char c)
@@ -37,6 +52,18 @@ size_t		ft_strlenchr(const char *s, char c)
 	while (s[i] && s[i] != c)
 		i++;
 	return (i);
+}
+
+int		cell_type(t_struct *s, char cell)
+{
+	if (cell == '.')
+		return (0);
+	if (cell == s->me || cell == ft_tolower(s->me))
+		return (1);
+	if (cell == s->enemy || cell == ft_tolower(s->enemy))
+		return (2);
+	else
+		return (3);
 }
 
 char	*ft_strjoin_and_free(char *s1, char *s2, char c, int at)

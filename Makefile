@@ -6,7 +6,7 @@
 #    By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/06/29 19:13:14 by ggregoir          #+#    #+#              #
-#    Updated: 2017/07/19 17:22:58 by ggregoir         ###   ########.fr        #
+#    Updated: 2017/07/27 21:57:06 by ggregoir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME	= ggregoir.filler
 
 SRC		= srcs/main.c       \
 		srcs/strats.c		\
+		srcs/strats2.c		\
 		srcs/utils.c		\
 		srcs/utils2.c		\
 		srcs/parsing.c		\

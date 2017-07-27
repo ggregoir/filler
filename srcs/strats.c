@@ -6,14 +6,16 @@
 /*   By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 11:13:57 by ggregoir          #+#    #+#             */
-/*   Updated: 2017/07/24 22:32:11 by ggregoir         ###   ########.fr       */
+/*   Updated: 2017/07/27 23:56:55 by ggregoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
 #include <stdio.h>
 
-int		enemy_dist(t_struct *s, int x, int y)
+int fd = 0;
+
+/*int		enemy_dist(t_struct *s, int x, int y)
 {
 	int		i;
 	int		j;
@@ -153,15 +155,66 @@ int		strat_downright(t_struct *s)
 	}
 	return ((s->distenemy < s->distmax) ? 1 : 0);
 }
-
-void			get_strat(*s)
+*/
+int	place_piece(t_struct *s, int yi, int xi)
 {
-	if (s->dir == 1)
+	int		i;
+	int		j;
+	int 	x;
+	int 	y;
+	int		nb;
+
+	if (fd == 0)
+		fd = open("/dev/ttys001", O_WRONLY);
+
+	j = -1;
+	nb = 0;
+	while (++j < s->piecey)
 	{
-		if (s->mapy == 15)
-			return(upleft_15(s));
-		return (strat_upleft(s));
+		i = -1;
+		while (++i < s->piecex)
+		{
+			if (s->piece[j][i] == '*')
+			{
+				y = j + yi;
+				x = x + xi;
+				if (y >= s->mapy || x >= s->mapx || !can_place(s, x, y, &nb))
+					return (0);
+			}
+		}
 	}
-	else if (s->dir == 0)
-		return (strat_downright(s));
+	return (nb == 1);
+}
+
+void			get_strat(t_struct *s)
+{
+	int		curr;
+	int		best;
+	int 	x;
+	int 	y;
+
+	if (fd == 0)
+		fd = open("/dev/ttys001", O_WRONLY);
+
+	best = 1024;
+	y = -1 - s->stary;
+	while (++y < s->mapy)
+	{
+		x = -1 - s->starx;
+		while (++x < s->mapx)
+		{
+			//ft_putendl_fd(ft_itoa(x), fd);
+			//ft_putendl_fd(ft_itoa(y), fd);
+			if (place_piece(s, x, y))
+			{
+				//ft_putendl_fd("lol", fd);
+				if ((curr = get_best_cell(s, x, y)) < best)
+				{
+					best = curr;
+					s->x = x;
+					s->y = y;
+				}
+			}
+		}
+	}
 }
