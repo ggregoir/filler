@@ -6,7 +6,7 @@
 /*   By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/19 10:58:53 by ggregoir          #+#    #+#             */
-/*   Updated: 2017/07/27 23:53:20 by ggregoir         ###   ########.fr       */
+/*   Updated: 2017/07/31 18:43:12 by ggregoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,8 @@ void	get_star(t_struct *s)
 	int x;
 	int i;
 
-	int fd = 0;
-
-	if (fd == 0)
-		fd = open("/dev/ttys001", O_WRONLY);
-
+	s->stary = 512;
+	s->starx = 512;
 	i = 0;
 	y = -1;
 	while (++y < s->piecey)
@@ -39,9 +36,6 @@ void	get_star(t_struct *s)
 			}
 		}
 	}
-	ft_putendl_fd("lolOJJKDWGKJQGDKJGWLDBKEJSGFJGSKFJKJSEFici", fd);
-	ft_putendl_fd(ft_itoa(s->stary), fd);
-	ft_putendl_fd(ft_itoa(s->starx), fd);
 }
 
 size_t		ft_strlenchr(const char *s, char c)

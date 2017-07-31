@@ -6,7 +6,7 @@
 /*   By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/29 19:45:12 by ggregoir          #+#    #+#             */
-/*   Updated: 2017/07/27 22:14:04 by ggregoir         ###   ########.fr       */
+/*   Updated: 2017/07/31 19:08:18 by ggregoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ void			get_star(t_struct *s);
 int				get_best_cell(t_struct *s, int yi, int xi);
 void			get_strat(t_struct *s);
 int				cell_type(t_struct *s, char cell);
+int				get_distance(int x, int y, int i, int j);
 
 #endif

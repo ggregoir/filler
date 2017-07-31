@@ -6,7 +6,7 @@
 /*   By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 16:29:27 by ggregoir          #+#    #+#             */
-/*   Updated: 2017/07/27 23:11:35 by ggregoir         ###   ########.fr       */
+/*   Updated: 2017/07/31 19:23:16 by ggregoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,36 +53,8 @@ void			ft_getpiece(t_struct *s)
 			//free(line);
 		}
 	}
+	get_star(s);
 }
-
-/*void			ft_getinitpos(t_struct *s)
-{
-	int x;
-	int y;
-
-	y = 0;
-	while(y != s->mapy)
-	{
-		x = 0;
-		while(x != s->mapx)
-		{
-			if (s->map[y][x] == s->me)
-			{
-				s->mex = x;
-				s->mey = y;
-			}
-			if (s->map[y][x] == s->enemy)
-			{
-				s->enemyx = x;
-				s->enemyy = y;
-			}
-			x++;
-		}
-		y++;
-	}
-	if (s->enemyy > s->mey)
-		s->dir = 1;
-}*/
 
 void			ft_getmap(t_struct *s)
 {
@@ -126,14 +98,12 @@ int 			main()
 
 		free(line);
 		ft_getmap(&s);
-		get_star(&s);
-		if (!ft_get_enemy_play(&s))
-			s.stop = 1;
+		get_strat(&s);
 		ft_print_piece(&s);
-		if (ft_end(&s))
-		{
-			break ;
-		}
+		//if (ft_end(&s))
+		//{
+		//	break ;
+		//}
 	}
 	return (0);
 }
